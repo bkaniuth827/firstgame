@@ -20,16 +20,16 @@ function preload() {
 
  game.load.image('sky', 'assets/sky.png');
  game.load.image('ground', 'assets/platform.png');
- game.load.image('star', 'assets/star.png');
- game.load.spritesheet('duke', 'assets/duke.png',32,48);
-game.load.image('diamond', 'assets/diamond.png', 28, 32)
+ game.load.image('firstaid', 'assets/firstaid.png');
+ game.load.image('baddie', 'assets/baddie.png,32,48');
+ game.load.image('diamond', 'assets/diamond.png', 28, 32);
 }
 
 function create() {
  game.add.sprite(0, 0, "sky");
- game.add.sprite(0, 0, "diamond");
- //game.add.sprite(200, 500, "star");
- //game.add.sprite(100,100, 'duke');
+ //game.add.sprite(0, 0, "diamond");
+ //game.add.sprite(200, 500, "firstaid");
+ //game.add.sprite(100,100, 'baddie');
 
  // The platforms group contains the ground and the ledges we can jump on 
  platforms = game.add.group();
@@ -42,9 +42,8 @@ function create() {
 
  // This stops it from falling away when you jump on it
  ground.body.immovable = true;
-
  var ledge = platforms.create(450, 500, 'ground');
- ledge.body.immovable = true;
+ledge.body.immovable = true;
 
  // We're going to be ising physics, so enable the Arcade Physics system
  game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -64,7 +63,7 @@ function create() {
  player.animations.add('left', [0, 1, 2, 3], 10, true);
  player.animations.add('right', [5, 6, 7, 8], 10, true);
  
- badguy = game.add.sprite(48, 128, 'duked');
+ badguy = game.add.sprite(48, 128, 'baddie');
 game.physics.arcade.enable(badguy);
  badguy.body.bounce.y = .5;
  badguy.body.gravity.y = 100;
@@ -106,7 +105,7 @@ game.physics.arcade.enable(badguy);
  // Here we'll create 12 of then evenly spaced apart
  for (var i = 0; i < 12; i++) {
   // Create a star inside of the 'stars' group
-  var star = stars.create(i * 70, 0, 'star');
+  var star = stars.create(i * 70, 0, 'firstaid');
 
   // Let gravity do its thing
   star.body.gravity.y = 100;
@@ -135,7 +134,7 @@ function update() {
  var hitPlatform = game.physics.arcade.collide(player, platforms);
 var hitPlatform = game.physics.arcade.collide(badguy, platforms);
 // Reset the players velocity (movement)
-player.body.velocity.x = 1;
+player.body.velocity.x = 50;
 
 if (cursors.left.isDown) {
  // Move to the left
